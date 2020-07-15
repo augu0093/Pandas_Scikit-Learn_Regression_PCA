@@ -10,6 +10,26 @@ from sklearn.model_selection import train_test_split
 from datetime import datetime
 
 
+
+def feat_eng(data):
+
+    # Now all categorical variables need to be label encoded
+    # Get list of categorical variables
+    s = (data.dtypes == 'object')
+    object_cols = list(s[s].index)
+    # Encode all categorical variable columns
+    label_df = data.copy()
+    label_encoder = LabelEncoder()
+    for col in object_cols:
+        label_df[col] = label_encoder.fit_transform(data[col])
+    df_all = label_df
+
+    return data
+
+
+"""
+Data loading is performed in below function
+"""
 def dataLoader(test=False, optimize_set=False):
 
     # Loading both training and test set
@@ -27,17 +47,8 @@ def dataLoader(test=False, optimize_set=False):
     # For pre-processing (feature engineering), both the training and test set are combined
     df_all = pd.concat([X, df_test])
 
-
-    # Now all categorical variables need to be label encoded
-    # Get list of categorical variables
-    s = (df_all.dtypes == 'object')
-    object_cols = list(s[s].index)
-    # Encode all categorical variable columns
-    label_df = df_all.copy()
-    labelEncoder = LabelEncoder()
-    for col in object_cols:
-        label_df[col] = labelEncoder.fit_transform(df_all[col])
-    df_all = label_df
+    # Feature engineering is performed in seperate function
+    df_all = feat_eng(df_all)
 
     # Now the two data sets are separated again
     X = df_all[:num_train_rows]
@@ -56,6 +67,9 @@ def dataLoader(test=False, optimize_set=False):
             return X, y
 
 
+"""
+Below function exports the predictions to .csv format for entry into the competition
+"""
 def csv_saver(predictions, name='Time'):
 
     # Get house ID's from test set
@@ -79,4 +93,26 @@ def csv_saver(predictions, name='Time'):
     return df.to_csv(output_filename, index=False)
 
 
+"""
+Checking the dimensions of the loaded data
+"""
+if __name__ == '__main__':
+
+    X, y = dataLoader(test=False, optimize_set=False)
+    print('Training set')
+    print(X.shape)
+    print(y.shape)
+    print('')
+
+    X_train, X_val, y_train, y_val = dataLoader(test=False, optimize_set=True)
+    print('Split training set')
+    print(X_train.shape)
+    print(y_train.shape)
+    print(X_val.shape)
+    print(y_val.shape)
+    print('')
+
+    test_data = dataLoader(test=True, optimize_set=False)
+    print('Test data for predictions')
+    print(test_data.shape)
 
