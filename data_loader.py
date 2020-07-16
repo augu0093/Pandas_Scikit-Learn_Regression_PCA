@@ -7,22 +7,51 @@ Import data and save to .csv functions.
 import pandas as pd
 from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
-from datetime import datetime
 
 
 
-def feat_eng(data):
+"""
+Feature engineering of the 79 explanatory variables of the house pricing data set
+"""
+def feat_eng(data, drop=False):
 
-    # Now all categorical variables need to be label encoded
-    # Get list of categorical variables
-    s = (data.dtypes == 'object')
-    object_cols = list(s[s].index)
-    # Encode all categorical variable columns
-    label_df = data.copy()
-    label_encoder = LabelEncoder()
-    for col in object_cols:
-        label_df[col] = label_encoder.fit_transform(data[col])
-    df_all = label_df
+    # 1.Imputation
+
+
+
+    # 2. Handling Outliers
+
+
+    # 3.Binning
+
+
+    # 4.Log Transform
+
+
+    # 5.One-Hot Encoding
+
+    # # Now all categorical variables need to be label encoded
+    # # Get list of categorical variables
+    # s = (data.dtypes == 'object')
+    # object_cols = list(s[s].index)
+    # # Encode all categorical variable columns
+    # label_df = data.copy()
+    # label_encoder = LabelEncoder()
+    # for col in object_cols:
+    #     label_df[col] = label_encoder.fit_transform(data[col])
+    # df_all = label_df
+
+    # 6.Grouping Operations
+
+
+    # 7.Feature Split
+
+
+    # 8.Scaling
+
+
+    # 9.Extracting Date
+
 
     return data
 
@@ -30,7 +59,7 @@ def feat_eng(data):
 """
 Data loading is performed in below function
 """
-def dataLoader(test=False, optimize_set=False):
+def dataLoader(test=False, optimize_set=False, return_all=False):
 
     # Loading both training and test set
     train_path = "./data/train.csv"
@@ -47,8 +76,10 @@ def dataLoader(test=False, optimize_set=False):
     # For pre-processing (feature engineering), both the training and test set are combined
     df_all = pd.concat([X, df_test])
 
-    # Feature engineering is performed in seperate function
+    # Feature engineering is performed in separate function
     df_all = feat_eng(df_all)
+    if return_all:
+        return df_all
 
     # Now the two data sets are separated again
     X = df_all[:num_train_rows]
@@ -67,36 +98,19 @@ def dataLoader(test=False, optimize_set=False):
             return X, y
 
 
-"""
-Below function exports the predictions to .csv format for entry into the competition
-"""
-def csv_saver(predictions, name='Time'):
-
-    # Get house ID's from test set
-    test_path = "./data/test.csv"
-    df_test = pd.read_csv(test_path)
-    house_id = df_test['Id']
-
-    # Make data frame from predictions and indexes
-    df = pd.DataFrame(list(zip(house_id, predictions)), columns=['Id', 'SalePrice'], index=None)
-
-    # Name the file the timestamp for differentiation if nothing is specified
-    if name == 'Time':
-        time_now = datetime.now()
-        day, hour, minute = str(time_now.day), str(time_now.hour), str(time_now.minute)
-        time = day + '-' + hour + '-' + minute
-        name = time
-    # Define output filename
-    output_filename = 'predictions/predictions_{}.csv'.format(name)
-
-    # Save to .csv
-    return df.to_csv(output_filename, index=False)
 
 
 """
 Checking the dimensions of the loaded data
 """
 if __name__ == '__main__':
+
+    all_data = dataLoader(return_all=True)
+    print('All feature data')
+    print(all_data.dtypes)
+    print(all_data.isna().sum())
+    print(all_data.shape)
+    print('')
 
     X, y = dataLoader(test=False, optimize_set=False)
     print('Training set')
