@@ -44,10 +44,15 @@ if __name__ == '__main__':
     # Initiate models
     Models = Models()
 
+    # Baseline (mean) model predictions
+    baseline_model = Models.build_model_baseline()
+    baseline_predictions = baseline_model.predict(testData)
+    csv_saver(predictions=baseline_predictions, name="baseline")
+
 
     # Linear Regression model predictions
-    linearModel = Models.build_model_lr()
-    linear_predictions = linearModel.predict(testData)
+    linear_model = Models.build_model_lr()
+    linear_predictions = linear_model.predict(testData)
     # Saving predictions
     csv_saver(predictions=linear_predictions, name="linearReg")
 

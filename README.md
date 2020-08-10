@@ -23,10 +23,10 @@ The following scripts are used for completing the competition.
 
 
 ### Models and their Accuracy
-Below is a short description of each model used and which accuracy they yielded.
+Below is a short description of each model used and which accuracy they yielded.  
+Accuracy is measured in Root Mean Squared Logarithmic Error (lower is better).
 
-
-- Baseline (random guessing):
+- Baseline (mean house price): 0.42577
 
 - Linear regression model: 
 
