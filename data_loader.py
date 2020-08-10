@@ -96,16 +96,16 @@ def feat_eng(data, drop=False):
 
     # 5. One-Hot Encoding
 
-    # # Now all categorical variables need to be label encoded
-    # # Get list of categorical variables
-    # s = (data.dtypes == 'object')
-    # object_cols = list(s[s].index)
-    # # Encode all categorical variable columns
-    # label_df = data.copy()
-    # label_encoder = LabelEncoder()
-    # for col in object_cols:
-    #     label_df[col] = label_encoder.fit_transform(data[col])
-    # df_all = label_df
+    # Now all categorical variables need to be label encoded
+    # Get list of categorical variables
+    s = (data.dtypes == 'object')
+    object_cols = list(s[s].index)
+    # Encode all categorical variable columns
+    label_df = data.copy()
+    label_encoder = LabelEncoder()
+    for col in object_cols:
+        label_df[col] = label_encoder.fit_transform(data[col])
+    data = label_df
 
     # 6. Grouping Operations
 
@@ -171,6 +171,7 @@ Checking the dimensions of the loaded data
 if __name__ == '__main__':
 
     all_data = dataLoader(return_all=True)
+    print(all_data.head())
     print('All feature data')
     print(all_data.dtypes)
     feature_names = list(all_data.columns)
