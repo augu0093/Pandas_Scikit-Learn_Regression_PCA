@@ -156,7 +156,7 @@ def dataLoader(test=False, optimize_set=False, return_all=False):
         return df_test
 
     # Training set is returned, either split or not
-    elif not test:
+    else:
         if optimize_set:
             return train_test_split(X, y, test_size=0.2, random_state=0)
         else:

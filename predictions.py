@@ -5,7 +5,8 @@ This script makes predictions for submission into the Kaggle competition.
 
 import pandas as pd
 from datetime import datetime
-
+from data_loader import dataLoader
+from models import Models
 
 """
 Below function exports the predictions to .csv format for entry into the competition
@@ -26,11 +27,30 @@ def csv_saver(predictions, name='Time'):
         day, hour, minute = str(time_now.day), str(time_now.hour), str(time_now.minute)
         time = day + '-' + hour + '-' + minute
         name = time
+
     # Define output filename
     output_filename = 'predictions/predictions_{}.csv'.format(name)
 
     # Save to .csv
     return df.to_csv(output_filename, index=False)
+
+
+
+if __name__ == '__main__':
+
+    # Import test data
+    testData = dataLoader(test=True, optimize_set=False, return_all=False)
+
+    # Initiate models
+    Models = Models()
+
+
+    # Linear Regression model predictions
+    linearModel = Models.build_model_lr()
+    linear_predictions = linearModel.predict(testData)
+    # Saving predictions
+    csv_saver(predictions=linear_predictions, name="linearReg")
+
 
 
 
