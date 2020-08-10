@@ -24,3 +24,6 @@ class Models:
         model.fit(self.X, self.y)
         return model
 
+
+
+
