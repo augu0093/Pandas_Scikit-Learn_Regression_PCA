@@ -10,14 +10,15 @@ from data_loader import dataLoader
 from sklearn.linear_model import LinearRegression
 from sklearn.dummy import DummyRegressor
 
-
+"""
+Class containing all classification models
+"""
 class Models:
-    """Class containing all classification models"""
+
     # Init
     def __init__(self):
         self.X, self.y = dataLoader(test=False, optimize_set=False, return_all=False)
         self.y = self.y.values.ravel()
-
 
     # Baseline model which simply guesses the mean value of house prices
     def build_model_baseline(self):
