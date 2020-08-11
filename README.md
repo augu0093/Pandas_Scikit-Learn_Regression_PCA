@@ -39,6 +39,9 @@ Accuracy is measured in Root Mean Squared Logarithmic Error (lower is better).
 
 
 ### TODO
+I want to get into top 10%, as to why the next two steps will be:  
 
+- Comprehensive Feature Engineering of the data.
+- Ensemble models for potential big boost in performance.
 
 #### Thank you for reading, I hope it was interesting
