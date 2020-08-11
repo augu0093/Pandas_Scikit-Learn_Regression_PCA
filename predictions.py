@@ -3,11 +3,13 @@ This script makes predictions for submission into the Kaggle competition.
 @AugustSemrau
 """
 
-import pandas as pd
-from datetime import datetime
 from data_loader import dataLoader
 from models import Models
 from data_loader import csv_saver
+
+import pandas as pd
+
+
 
 
 if __name__ == '__main__':

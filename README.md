@@ -13,13 +13,16 @@ Further, Principal Component Analysis is used for garnering a better understandi
 The following scripts are used for completing the competition.
  
 1. **dataLoader.py** which loads .csv data and uses scikit-learn (sklearn) for preprocessing. 
-2. **models.py** contains some non-tuned sklearn regression models, some tuned models.
-3. **predictions.py** is used for printing predictions to .csv format for entry in Kaggle-competition.
-4. **pca.py** is used for investigating the data using principal component analysis.
+2. **pca.py** is used for investigating the data visually using principal component analysis.
+3. **models.py** contains some non-tuned sklearn regression models, some tuned models.
+4. **predictions.py** is used for printing predictions to .csv format for entry in Kaggle-competition.
 
 
 
 ### PCA
+The PCA is used for visualizing the data which originally has way too many dimensions (79) to properly plot.  
+The first PCA plot uses 2 principal components and distinguishes houses that are priced over or under the mean house price.
+Second PCA plot uses the same 2 principal components and then a range of price-intervals instead of just over/under mean.
 
 
 ### Models and their Accuracy
